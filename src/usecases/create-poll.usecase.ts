@@ -1,7 +1,7 @@
 import { z } from 'zod'
 import { prisma } from '../lib/prisma'
 
-const CreatePollBody = z.object({
+export const CreatePollBody = z.object({
   title: z.string(),
 })
 
