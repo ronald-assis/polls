@@ -1,21 +1,19 @@
 import { FastifyReply, FastifyRequest } from 'fastify'
-import { z } from 'zod'
-
-import { prisma } from '../../lib/prisma'
+import {
+  createPollUsecase,
+  CreatePollBody,
+} from '../../usecases/create-poll.usecase'
 
 export const createPollController = async (
   request: FastifyRequest,
   reply: FastifyReply,
 ) => {
-  const createPollBody = z.object({
-    title: z.string(),
-  })
+  try {
+    const createShema = CreatePollBody.parse(request.body)
+    const response = await createPollUsecase(createShema)
 
-  const { title } = createPollBody.parse(request.body)
-
-  const { id } = await prisma.poll.create({
-    data: { title },
-  })
-
-  return reply.status(201).send({ pollId: id })
+    reply.send(response)
+  } catch (error) {
+    reply.status(500).send({ message: 'error' })
+  }
 }
