@@ -1,16 +1,16 @@
 import { FastifyReply, FastifyRequest } from 'fastify'
 import {
-  createPollUsecase,
-  CreatePollBody,
-} from '../../usecases/create-poll.usecase'
+  createPollService,
+  CreatePollBodySchema,
+} from '../../services/create-poll.service'
 
 export const createPollController = async (
   request: FastifyRequest,
   reply: FastifyReply,
 ) => {
   try {
-    const createShema = CreatePollBody.parse(request.body)
-    const response = await createPollUsecase(createShema)
+    const createShema = CreatePollBodySchema.parse(request.body)
+    const response = await createPollService(createShema)
 
     reply.send(response)
   } catch (error) {
