@@ -1,8 +1,8 @@
 import { FastifyReply, FastifyRequest } from 'fastify'
-import { PollService } from '../../services/create-poll.service'
+import { PollsService } from '../../services/polls.service'
 import { CreatePollBodySchema } from '../../schemas/create-poll.schema'
 
-const pollService = new PollService()
+const pollService = new PollsService()
 
 export const createPollController = async (
   request: FastifyRequest,
