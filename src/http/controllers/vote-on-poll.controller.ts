@@ -1,17 +1,16 @@
 import { FastifyReply, FastifyRequest } from 'fastify'
-
 import { PollsService } from '../../services/polls.service'
-import { GetPollParamsSchema } from '../../schemas/get-poll.schema'
+import { VoteOnPollParamsSchema } from '../../schemas/vote-on-poll.schema'
 
 const pollService = new PollsService()
 
-export const getPollController = async (
+export const voteOnPollController = async (
   request: FastifyRequest,
   reply: FastifyReply,
 ) => {
   try {
-    const createShema = GetPollParamsSchema.parse(request.params)
-    const response = await pollService.getPoll(createShema)
+    const createShema = VoteOnPollParamsSchema.parse(request.params)
+    const response = await pollService.voteOnPoll(createShema)
 
     reply.send(response)
   } catch (error) {

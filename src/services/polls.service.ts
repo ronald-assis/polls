@@ -1,6 +1,7 @@
 import { prisma } from '../lib/prisma'
 import { CreatePollBodySchema, PollType } from '../schemas/create-poll.schema'
 import { GetPollParamsSchema, PollIdType } from '../schemas/get-poll.schema'
+import {VoteOnPollBodySchema, VoteOnPollType} from "../schemas/vote-on-poll.schema";
 
 export class PollsService {
   async createPoll(data: PollType) {
@@ -42,5 +43,9 @@ export class PollsService {
     return poll
   }
 
-  async voteOnPoll
+  async voteOnPoll(vote: VoteOnPollType) {
+    const { pollOptionsId } = VoteOnPollBodySchema.parse(vote)
+
+    return pollOptionsId
+  }
 }
